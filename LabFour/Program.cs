@@ -1,1 +1,6 @@
-﻿
+﻿using System; 
+
+namespace LabFour
+{
+
+}
