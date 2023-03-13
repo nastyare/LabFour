@@ -7,22 +7,22 @@ namespace LabFour
     {
         public static void InitiateEdit(string FilePath, string FileName)
         {
-            Console.Write("Что cделать с указанным файлом?\n\n1. Изменить текст\n" +
+            Console.Write("Что cделать с этим файлом?\n\n1. Изменить текст\n" +
                 "2. Запомнить состояние\n3. Откатить изменения\n\nВведите номер опции: ");
             int Choice = 0;
             while (Choice < 1 || Choice > 3)
             {
                 if (int.TryParse(Convert.ToString(Console.ReadLine()), out Choice) == false)
                 {
-                    Console.WriteLine("Данные введены неверно. Попробуйте ещё раз");
+                    Console.WriteLine("Такой опции нет");
                 }
             }
 
-            FileStream file = new FileStream(FilePath, FileMode.OpenOrCreate);
+            FileStream File = new FileStream(FilePath, FileMode.OpenOrCreate);
             switch (Choice)
             {
                 case 1:
-                    FileReader(file, FileName);
+                    FileReader(File, FileName);
                     Console.Clear();
                     Console.WriteLine("Введите новое содержание файла(нажмите ^ и Enter для выхода):");
                     char Ch;
@@ -48,13 +48,13 @@ namespace LabFour
                     Console.ReadKey();
                     break;
                 case 2:
-                    FileReader(file, FileName);
-                    care.SaveState(textFile);
+                    FileReader(File, FileName);
+                    Care.SaveState(TextFile);
                     break;
                 case 3:
                     try
                     {
-                        file.Close();
+                        File.Close();
                         RestoreData(FilePath, FileName);
                     }
                     catch (KeyNotFoundException)
@@ -64,11 +64,11 @@ namespace LabFour
                     }
                     break;
             }
-            file.Close();
+            File.Close();
         }
 
-        static TextClass textFile = new TextClass();
-        static Caretaker care = new Caretaker();
+        static TextClass TextFile = new TextClass();
+        static Caretaker Care = new Caretaker();
 
         private static void FileReader(FileStream file, string FileName)
         {
@@ -81,12 +81,12 @@ namespace LabFour
             }
             try
             {
-                textFile.Content.Add(FileName, OutString);
-                textFile.FileName.Add(FileName);
+                TextFile.Content.Add(FileName, OutString);
+                TextFile.FileName.Add(FileName);
             }
             catch (Exception)
             {
-                textFile.Content[FileName] = OutString;
+                TextFile.Content[FileName] = OutString;
             }
             Reader.Close();
         }
@@ -101,10 +101,10 @@ namespace LabFour
 
         private static void RestoreData(string UserPath, string FileName)
         {
-            care.RestoreState(textFile);
+            Care.RestoreState(TextFile);
             using (StreamWriter Writer = new StreamWriter(UserPath, false))
             {
-                Writer.Write(textFile.Content[FileName]);
+                Writer.Write(TextFile.Content[FileName]);
             }
         }
     }
