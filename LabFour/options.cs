@@ -15,10 +15,10 @@ namespace LabFour
 
                 foreach (string currentFile in txtFiles)
                 {
-                    string fileName = currentFile.Substring(FilePath.Length);
-                    if (File.ReadLines(FilePath + fileName).Any(line => line.Contains(FileKeywords)) || fileName.Contains(FileKeywords))
+                    string FileName = currentFile.Substring(FilePath.Length);
+                    if (File.ReadLines(FilePath + FileName).Any(line => line.Contains(FileKeywords)) || FileName.Contains(FileKeywords))
                     {
-                        ReadyList.Add(fileName);
+                        ReadyList.Add(FileName);
                     }
                 }
             }
@@ -45,30 +45,30 @@ namespace LabFour
     {
         public static void PerformIndexation(string FilePath)
         {
-            List<string> extensions = new List<string>();
+            List<string> Extensions = new List<string>();
             Console.WriteLine("Вводите расширения, по которым вы бы хотели провести индексацию. Для остановки введите ^ и Enter");
-            while (!extensions.Contains("^"))
+            while (!Extensions.Contains("^"))
             {
-                extensions.Add(Console.ReadLine());
+                Extensions.Add(Console.ReadLine());
             }
-            extensions.Remove("^");
+            Extensions.Remove("^");
 
             Console.Write("\nВведите имя файла c расширением, в который нужно сохранить результат индексации: ");
-            string loggingFileName = FilePath + @"\" + Console.ReadLine();
-            FileStream indexatedFile = new FileStream(loggingFileName, FileMode.OpenOrCreate);
-            using (StreamWriter writer = new StreamWriter(indexatedFile))
-                foreach (string currentExtension in extensions)
+            string LoggingFileName = FilePath + @"\" + Console.ReadLine();
+            FileStream IndexatedFile = new FileStream(LoggingFileName, FileMode.OpenOrCreate);
+            using (StreamWriter Writer = new StreamWriter(IndexatedFile))
+                foreach (string CurrentExtension in Extensions)
                 {
-                    var extensionFiles = Directory.EnumerateFiles(FilePath, "*." + currentExtension,
+                    var ExtensionFiles = Directory.EnumerateFiles(FilePath, "*." + CurrentExtension,
                         SearchOption.AllDirectories);
-                    writer.WriteLine(currentExtension + ":\n");
-                    foreach (string currentFile in extensionFiles)
+                    Writer.WriteLine(CurrentExtension + ":\n");
+                    foreach (string CurrentFile in ExtensionFiles)
                     {
-                        string fileName = currentFile.Substring(FilePath.Length);
-                        writer.WriteLine(fileName);
+                        string FileName = CurrentFile.Substring(FilePath.Length);
+                        Writer.WriteLine(FileName);
                     }
                 }
-            indexatedFile.Close();
+            IndexatedFile.Close();
         }
     }
     public interface IOriginator
@@ -85,15 +85,15 @@ namespace LabFour
 
     public class Caretaker
     {
-        private object memento;
+        private object Memento;
         public void SaveState(IOriginator originator)
         {
-            originator.SetMemento(memento);
+            originator.SetMemento(Memento);
         }
 
         public void RestoreState(IOriginator originator)
         {
-            memento = originator.GetMemento();
+            Memento = originator.GetMemento();
         }
     }
 
@@ -125,9 +125,9 @@ namespace LabFour
         public void BinaryDeserialization(FileStream fs)
         {
             BinaryFormatter bf = new BinaryFormatter();
-            TextClass deserialized = (TextClass)bf.Deserialize(fs);
-            Content = deserialized.Content;
-            FileName = deserialized.FileName;
+            TextClass Deserialized = (TextClass)bf.Deserialize(fs);
+            Content = Deserialized.Content;
+            FileName = Deserialized.FileName;
             fs.Close();
         }
 
@@ -142,9 +142,9 @@ namespace LabFour
         public void XmlDeserialization(FileStream fs)
         {
             XmlSerializer xmlserializer = new XmlSerializer(typeof(TextClass));
-            TextClass deserialized = (TextClass)xmlserializer.Deserialize(fs);
-            Content = deserialized.Content;
-            FileName = deserialized.FileName;
+            TextClass Deserialized = (TextClass)xmlserializer.Deserialize(fs);
+            Content = Deserialized.Content;
+            FileName = Deserialized.FileName;
             fs.Close();
         }
 
@@ -157,9 +157,9 @@ namespace LabFour
         {
             if (memento is Memento)
             {
-                var memen = memento as Memento;
-                Content = memen.Content;
-                FileName = memen.FileName;
+                var Memen = memento as Memento;
+                Content = Memen.Content;
+                FileName = Memen.FileName;
             }
         }
     }
