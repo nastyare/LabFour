@@ -7,7 +7,7 @@ namespace LabFour
     {
         public static void InitiateEdit(string FilePath, string FileName)
         {
-            Console.Write("Что будете делать с указанным файлом?\n\n1. Изменить текст\n" +
+            Console.Write("Что cделать с указанным файлом?\n\n1. Изменить текст\n" +
                 "2. Запомнить состояние\n3. Откатить изменения\n\nВведите номер опции: ");
             int Choice = 0;
             while (Choice < 1 || Choice > 3)
@@ -24,7 +24,7 @@ namespace LabFour
                 case 1:
                     FileReader(file, FileName);
                     Console.Clear();
-                    Console.WriteLine("Введите новое содержание файла(нажмите ~ для выхода):");
+                    Console.WriteLine("Введите новое содержание файла(нажмите ^ и Enter для выхода):");
                     char ch;
                     int element;
                     string Input = "";
@@ -41,7 +41,7 @@ namespace LabFour
                             Console.WriteLine($"{element} - не подходящее значение");
                             ch = Char.MinValue;
                         }
-                    } while (ch != '~');
+                    } while (ch != '^');
                     FileWriter(Input, FilePath, FileName);
                     Console.Clear();
                     Console.WriteLine("Изменения добавлены успешно");
