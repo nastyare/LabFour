@@ -24,14 +24,14 @@ namespace LabFour
                 }
             }
             int Choice = 0;
-            if (Choice != 4)
+            while (Choice != 4)
             {
                 Console.Clear();
                 Console.WriteLine($"Выбранный путь: {FilePath}");
                 Console.WriteLine("1. Редактировать файл\n2. Найти файлы по ключевым словам\n" +
                     "3. Проиндексировать все файлы в рабочей папке в отдельный файл\n4. Выход");
                 Console.Write("Выберите опцию: ");
-                if (Choice < 1 || Choice > 4)
+                while (Choice < 1 || Choice > 4)
                 {
                     if (int.TryParse(Convert.ToString(Console.ReadLine()), out Choice) == false)
                     {
