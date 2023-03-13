@@ -25,23 +25,23 @@ namespace LabFour
                     FileReader(file, FileName);
                     Console.Clear();
                     Console.WriteLine("Введите новое содержание файла(нажмите ^ и Enter для выхода):");
-                    char ch;
-                    int element;
+                    char Ch;
+                    int Element;
                     string Input = "";
                     do
                     {
-                        element = Console.Read();
+                        Element = Console.Read();
                         try
                         {
-                            ch = Convert.ToChar(element);
-                            Input += ch;
+                            Ch = Convert.ToChar(Element);
+                            Input += Ch;
                         }
                         catch (OverflowException)
                         {
-                            Console.WriteLine($"{element} - не подходящее значение");
-                            ch = Char.MinValue;
+                            Console.WriteLine($"{Element} - не подходящее значение");
+                            Ch = Char.MinValue;
                         }
-                    } while (ch != '^');
+                    } while (Ch != '^');
                     FileWriter(Input, FilePath, FileName);
                     Console.Clear();
                     Console.WriteLine("Изменения добавлены успешно");
@@ -72,39 +72,39 @@ namespace LabFour
 
         private static void FileReader(FileStream file, string FileName)
         {
-            string outString = "";
-            var reader = new StreamReader(file);
+            string OutString = "";
+            var Reader = new StreamReader(file);
 
-            while (!reader.EndOfStream)
+            while (!Reader.EndOfStream)
             {
-                outString += reader.ReadLine();
+                OutString += Reader.ReadLine();
             }
             try
             {
-                textFile.Content.Add(FileName, outString);
+                textFile.Content.Add(FileName, OutString);
                 textFile.FileName.Add(FileName);
             }
             catch (Exception)
             {
-                textFile.Content[FileName] = outString;
+                textFile.Content[FileName] = OutString;
             }
-            reader.Close();
+            Reader.Close();
         }
 
-        private static void FileWriter(string input, string UserPath, string FileName)
+        private static void FileWriter(string Input, string UserPath, string FileName)
         {
-            using (StreamWriter writer = new StreamWriter(UserPath, true))
+            using (StreamWriter Writer = new StreamWriter(UserPath, true))
             {
-                writer.Write(input);
+                Writer.Write(Input);
             }
         }
 
         private static void RestoreData(string UserPath, string FileName)
         {
             care.RestoreState(textFile);
-            using (StreamWriter writer = new StreamWriter(UserPath, false))
+            using (StreamWriter Writer = new StreamWriter(UserPath, false))
             {
-                writer.Write(textFile.Content[FileName]);
+                Writer.Write(textFile.Content[FileName]);
             }
         }
     }
