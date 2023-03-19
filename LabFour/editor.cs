@@ -24,12 +24,10 @@ namespace LabFour
                 case 1:
                     FileReader(File, FileName);
                     Console.Clear();
-                    Console.WriteLine("Введите новое содержание файла(нажмите ^ и Enter для выхода):");
+                    Console.WriteLine("Введите новое содержание файла(:");
                     char Ch;
                     int Element;
                     string Input = "";
-                    //do
-                    //{
                         Element = Console.Read();
                         try
                         {
@@ -41,7 +39,6 @@ namespace LabFour
                             Console.WriteLine($"{Element} - не подходящее значение");
                             Ch = Char.MinValue;
                         }
-                   // } while (Ch != '^');
                     FileWriter(Input, FilePath, FileName);
                     Console.Clear();
                     Console.WriteLine("Изменения добавлены успешно");
