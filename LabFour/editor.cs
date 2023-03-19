@@ -28,8 +28,8 @@ namespace LabFour
                     char Ch;
                     int Element;
                     string Input = "";
-                    do
-                    {
+                    //do
+                    //{
                         Element = Console.Read();
                         try
                         {
@@ -41,7 +41,7 @@ namespace LabFour
                             Console.WriteLine($"{Element} - не подходящее значение");
                             Ch = Char.MinValue;
                         }
-                    } while (Ch != '^');
+                   // } while (Ch != '^');
                     FileWriter(Input, FilePath, FileName);
                     Console.Clear();
                     Console.WriteLine("Изменения добавлены успешно");
